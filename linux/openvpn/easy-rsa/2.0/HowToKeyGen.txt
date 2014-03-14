@@ -1,0 +1,26 @@
+#!/bin/bash
+echo Build the keys
+source ./vars
+./clean-all
+./build-ca
+./build-key-server server
+./build-dh
+./build-key client
+
+echo Move the keys
+SERVER=/etc/openvpn/
+	cp keys/dh1024.pem keys/ca.crt keys/server.crt keys/server.key $SERVER/
+	mkdir $HOME/client/
+CLIENT=$HOME/client/
+	cp keys/ca.crt keys/client.crt keys/client.key $CLIENT/
+
+echo Only ca.crt is needed for the client config if usernames are used
+
+echo Forward them ports
+# FORWARDING INFO
+	iptables -t nat -A POSTROUTING -s 10.8.0.0/24 -o eth0 -j MASQUERADE
+	iptables -I INPUT -p udp --dport 1194 -j ACCEPT -m comment --comment "OpenVPN"
+	net.ipv4.ip_forward = 1
+
+echo Start that thing
+	/etc/init.d/openvpn start

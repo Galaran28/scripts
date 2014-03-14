@@ -62,13 +62,13 @@ export KEY_EXPIRE=3650
 # which will be placed in the certificate.
 # Don't leave any of these fields blank.
 export KEY_COUNTRY="US"
-export KEY_PROVINCE="CA"
-export KEY_CITY="SanFrancisco"
-export KEY_ORG="Fort-Funston"
-export KEY_EMAIL="me@myhost.mydomain"
-export KEY_EMAIL=mail@host.domain
-export KEY_CN=changeme
-export KEY_NAME=changeme
+export KEY_PROVINCE="NH"
+export KEY_CITY="Durham"
+export KEY_ORG="University of New Hampshire"
+export KEY_EMAIL="info@helpdesk"
+export KEY_EMAIL=info@helpdesk
+export KEY_CN=InfoSec
+export KEY_NAME=InfoSec
 export KEY_OU=changeme
 export PKCS11_MODULE_PATH=changeme
 export PKCS11_PIN=1234
