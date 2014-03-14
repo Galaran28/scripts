@@ -1,0 +1,2 @@
+V	240311012506Z		01	unknown	/C=US/ST=NH/L=Durham/O=University of New Hampshire/OU=changeme/CN=server/name=InfoSec/emailAddress=info@helpdesk
+V	240311012521Z		02	unknown	/C=US/ST=NH/L=Durham/O=University of New Hampshire/OU=changeme/CN=client/name=InfoSec/emailAddress=info@helpdesk
