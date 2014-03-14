@@ -1,5 +1,5 @@
-850be1d768fb76dd22f75a8b54b7fd18  /etc/passwd
-54404b028c3fa4696dd5fb0c9c4247a7  /etc/group
+3c7c93b099cd0cc869c685662f3f50c6  /etc/passwd
+c34faf80f4b6ff64617e192e709d1836  /etc/group
 0b6f835598c7640184e476057b3c7722  /etc/profile
 5190a477f56d8b82b320a25da0abda97  /etc/sudoers
 7bc65f234dfb6abf24e7c3b03e86f4ff  /etc/hosts
@@ -20,6 +20,7 @@ KateDJ
 MP4Box
 MP4Client
 Thunar
+UTscapy
 VBox
 VBoxBalloonCtrl
 VBoxHeadless
@@ -65,10 +66,12 @@ analyze
 anytovcd.sh
 aplay
 aplaymidi
+appletviewer
 applygnupgdefaults
 appres
 apr-1-config
 apropos
+apt
 apu-1-config
 ar
 arecord
@@ -137,7 +140,9 @@ bshell
 bssh
 btsync
 btsync-wrapper
+bundle-1.9
 bunzip2
+busctl
 bvnc
 bzcat
 bzdiff
@@ -214,6 +219,7 @@ cleanupdelta
 clear
 clockdiff
 cloog
+clusterdb
 cmp
 cmsutil
 col
@@ -234,6 +240,9 @@ cracklib-format
 cracklib-packer
 cracklib-unpacker
 create-cracklib-dict
+createdb
+createlang
+createuser
 crlutil
 croco-0.6-config
 cron-pacmatic
@@ -334,6 +343,9 @@ dnsdomainname
 dosfsck
 dosfslabel
 drill
+dropdb
+droplang
+dropuser
 dtsdec
 du
 dubdv
@@ -403,6 +415,7 @@ expac
 expand
 expiry
 expr
+extcheck
 extlinux
 extract_a52
 extract_dca
@@ -462,6 +475,7 @@ floppyd_installtest
 fluidsynth
 fmt
 fold
+fossil
 fpcalc
 free
 freetype-config
@@ -535,6 +549,7 @@ getpcaps
 gettext
 gettext.sh
 gettextize
+gf2pbm
 ghc
 ghc-7.6.3
 ghc-pkg
@@ -735,6 +750,7 @@ idle
 idle2
 idle3
 idle3.3
+idlj
 idn
 idnconv
 iecset
@@ -763,6 +779,9 @@ infokey
 infotocap
 init
 init-jks-keystore
+initdb
+inotifywait
+inotifywatch
 insmod
 install
 install-info
@@ -783,6 +802,7 @@ iptables
 iptables-restore
 iptables-save
 iptables-xml
+iptstate
 ir-keytable
 irb-1.9
 irssi
@@ -831,23 +851,41 @@ jack_transport_client
 jack_unload
 jack_wait
 jackd
+jar
+jarsigner
 jasper
 java
+javac
+javadoc
+javah
+javap
 javaws
+jcmd
+jconsole
+jdb
 jfs_debugfs
 jfs_fsck
 jfs_fscklog
 jfs_logdump
 jfs_mkfs
 jfs_tune
+jhat
+jinfo
 jiv
+jmap
 join
 journalctl
 jpeg2yuv
 jpegtran
 jpgicc
+jps
+jrunscript
 js17
 js17-config
+jsadebugd
+jstack
+jstat
+jstatd
 k5srvutil
 kadmin
 kadmin.local
@@ -897,10 +935,8 @@ lavaddwav
 lavinfo
 lavpipe
 lavplay
-lavrec
 lavtc.sh
 lavtrans
-lavvideo
 lconvert-qt4
 ld
 ld.bfd
@@ -1090,12 +1126,14 @@ mesg
 metaflac
 mev
 mformat
+mftrace
 mib2c
 mib2c-update
 minfo
 minicom
 mjpeg_simd_helper
 mk_cmds
+mkbitmap
 mkdir
 mkdiskimage
 mkdosfs
@@ -1215,6 +1253,7 @@ mysql_config
 mzip
 namei
 nano
+native2ascii
 nc
 ncat
 ncursesw5-config
@@ -1303,8 +1342,10 @@ ocsptool
 od
 odbc_config
 odbcinst
+oid2name
 oldfind
 openssl
+openvpn
 openvt
 orage
 orbd
@@ -1377,10 +1418,23 @@ peekfd
 perl
 pfbtops
 pg
+pg_archivecleanup
+pg_basebackup
 pg_config
+pg_controldata
+pg_ctl
 pg_dump
 pg_dumpall
+pg_isready
+pg_receivexlog
+pg_resetxlog
 pg_restore
+pg_standby
+pg_test_fsync
+pg_test_timing
+pg_upgrade
+pg_xlogdump
+pgbench
 pgmtoy4m
 pgrep
 phar
@@ -1415,6 +1469,9 @@ playdv
 pldd
 plistutil
 plistutil-1.10
+pltcl_delmod
+pltcl_listmod
+pltcl_loadmod
 plugctl
 pluginviewer
 plugreport
@@ -1428,6 +1485,10 @@ pnmtoy4m
 pod2texi
 policytool
 post-grohtml
+postgres
+postgresql-check-db-dir
+postmaster
+potrace
 poweroff
 ppdc
 ppdhtml
@@ -1562,6 +1623,7 @@ recode-sr-latin
 redland-config
 redland-db-upgrade
 refer
+reindexdb
 reiserfsck
 reiserfstune
 reject
@@ -1589,6 +1651,7 @@ rlogin
 rlogind
 rm
 rmdir
+rmic
 rmid
 rmiregistry
 rmmod
@@ -1638,7 +1701,10 @@ rvim
 rvlc
 sasldblistusers2
 saslpasswd2
+scapy
+schemagen
 sclient
+scmp_sys_resolver
 scp
 screen
 screen-4.0.3
@@ -1654,6 +1720,7 @@ scsi_stop
 scsi_temperature
 sdiff
 sdl-config
+sdl2-config
 sed
 sendiso
 sensord
@@ -1661,6 +1728,7 @@ sensors
 sensors-conf-convert
 sensors-detect
 seq
+serialver
 servertool
 sessreg
 setarch
@@ -1754,6 +1822,7 @@ signtool
 signver
 sim_client
 sim_server
+simplescreenrecorder
 sip
 size
 skdump
@@ -1894,6 +1963,12 @@ systemd-stdio-bridge
 systemd-tmpfiles
 systemd-tty-ask-password-agent
 systool
+t1ascii
+t1asm
+t1binary
+t1disasm
+t1mac
+t1unmac
 tabs
 tac
 taglib-config
@@ -1906,6 +1981,7 @@ taskset
 tbl
 tc
 tcat
+tcpdump
 tdbbackup
 tdbdump
 tdbrestore
@@ -1921,7 +1997,6 @@ testdb
 testlibraw
 testpkg
 testrb-1.9
-testrec
 texi2any
 texi2dvi
 texi2pdf
@@ -1970,6 +2045,7 @@ tracepath6
 transicc
 transist.flt
 traptoemail
+tree
 trietool-0.2
 troff
 true
@@ -2040,6 +2116,8 @@ v4l2-compliance
 v4l2-ctl
 v4l2-dbg
 v4l2-sysfs-path
+vacuumdb
+vacuumlo
 vainfo
 vboxballoonctrl
 vboxheadless
@@ -2123,6 +2201,8 @@ wps2raw
 wps2text
 write
 wrjpgcom
+wsgen
+wsimport
 wvgain
 wvunpack
 wx-config
@@ -2143,6 +2223,7 @@ x86_64-unknown-linux-gnu-pkg-config
 xargs
 xauth
 xbacklight
+xchat
 xclock
 xcmsdb
 xdg-desktop-icon
@@ -2225,6 +2306,7 @@ xgettext
 xhost
 xinit
 xinput
+xjc
 xkbcomp
 xminicom
 xml2-config
@@ -2271,6 +2353,7 @@ y4mdenoise
 y4mhist
 y4minterlace
 y4mivtc
+y4mscaler
 y4mshift
 y4mspatialfilter
 y4mstabilizer
@@ -2377,6 +2460,7 @@ gtk-2.0
 gtk-3.0
 healthd.conf
 host.conf
+hostname
 hosts
 idn.conf
 idnalias.conf
@@ -2428,6 +2512,7 @@ ntp.conf
 odbc.ini
 odbcinst.ini
 openldap
+openvpn
 os-release
 pacman.conf
 pacman.d
@@ -2510,9 +2595,7 @@ sshd_config
 /home/:
 .
 ..
-bob
-bobsleys
-bsleys
+bsleys.tar.bz2
 chris
 lost+found
 pwnplug
