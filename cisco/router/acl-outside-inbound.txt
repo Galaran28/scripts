@@ -1,0 +1,91 @@
+! VARIABLES:
+! SUMMARY_IP_RANGE: Our total IP range
+! SUMMARY_MASK: Our total IP mask
+! SERVER_IP: IP address for a server
+! NEEDED_PORT: A port for a needed service (from the hosts)
+! 
+
+
+ip access extend OUTSIDE_INBOUND
+!
+!
+remark -- Deny connections to this device, careful if there is NAT --
+!
+deny ip any host ROUTER’s_IP log-input
+!
+!
+remark -- Deny Fragments --
+!
+deny tcp any any fragments log-input
+deny udp any any fragments log-input
+deny icmp any any fragments log-input
+deny ip any any fragments log-input
+!
+!
+remark -- Deny Packets with IP Options --
+!
+deny ip any any option any-options log-input
+!
+!
+remark -- Allow returning connections --
+!
+evaluate OUTSIDE_OUTBOUND_REFLECTIVE
+!
+!
+remark -- Disallow spoofing --
+!
+deny ip SUMMARY_IP_RANGE SUMMARY_MASK any
+!
+!
+remark -- Disallow unroutable addresses --
+!
+!
+!deny ip 10.0.0.0 0.255.255.255 any log-input
+!deny ip 172.16.0.0 0.15.255.255 any log-input
+!deny ip 192.168.0.0 0.0.255.255 any log-input
+deny ip 248.0.0.0 7.255.255.255 any log-input
+deny ip any 248.0.0.0 7.255.255.255 log-input
+deny ip 255.255.255.255 0.0.0.0 any log-input
+deny ip any 255.255.255.255 0.0.0.0 log-input
+deny ip 192.0.2.0 0.0.0.255 any log-input
+deny ip any 192.0.2.0 0.0.0.255 any log-input
+deny ip host 0.0.0.0 any log-input
+deny ip any host 0.0.0.0 log-input
+deny ip host 255.255.255.255 any log-input
+deny ip any host 255.255.255.255 log-input
+deny ip 127.0.0.0 0.255.255.255 any log-input
+deny ip any 127.0.0.0 0.255.255.255 log-input
+deny ip 224.0.0.0 15.255.255.255 any log-input
+deny ip any 224.0.0.0 15.255.255.255 log-input
+deny ip 240.0.0.0 7.255.255.255 any log-input
+deny ip any 240.0.0.0 7.255.255.255 log-input
+deny ip 0.0.0.0 0.255.255.255 any log-input
+deny ip any 0.0.0.0 0.255.255.255 log-input
+deny ip 169.254.0.0 0.0.255.255 any log-input
+deny ip any 169.254.0.0 0.0.255.255 log-input
+!
+!
+remark -- Allow certain ICMP, For info on codes: http://www.erg.abdn.ac.uk/~gorry/eg3567/inet-pages/icmp-code.html --
+!
+permit icmp any SUMMARY_IP_RANGE SUMMARY_MASK 0
+permit icmp any SUMMARY_IP_RANGE SUMMARY_MASK 3 4
+permit icmp any SUMMARY_IP_RANGE SUMMARY_MASK 8
+permit icmp any SUMMARY_IP_RANGE SUMMARY_MASK 11
+permit icmp any SUMMARY_IP_RANGE SUMMARY_MASK 12
+!
+!
+remark -- Disallow all other ICMP --
+!
+deny icmp any any log-input
+!
+!
+remark -- Allow connections to services -- 
+!
+permit tcp any host SERVER_IP eq NEEDED_PORT reflect OUTSIDE_INBOUND_REFLECTIVE
+...
+!
+!
+remark -- Block everything else and log it -- 
+!
+deny ip any any log-input
+!

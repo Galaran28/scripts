@@ -1,0 +1,83 @@
+! VARIABLES:
+! LAN_IP_RANGE: The LAN interface's IP range
+! LAN_MASK: The mask of the LAN
+! SERVER_IP_RANGE: The server interface's IP range
+! SERVER_MASK: The server IP mask
+! NEEDED_PORT: A port for a needed service (from the hosts)
+! 
+
+
+ip access extend SERVERS_INBOUND
+!
+!
+remark -- Deny traffic to LAN --
+!
+deny ip any LAN_IP_RANGE LAN_MASK log-input
+!
+!
+remark -- Deny Fragments --
+!
+deny tcp any any fragments log-input
+deny udp any any fragments log-input
+deny icmp any any fragments log-input
+deny ip any any fragments log-input
+!
+!
+remark -- Deny Packets with IP Options --
+!
+deny ip any any option any-options log-input
+!
+!
+remark -- Disallow bad stuff --
+!
+deny ip 248.0.0.0 7.255.255.255 any log-input
+deny ip any 248.0.0.0 7.255.255.255 log-input
+deny ip 255.255.255.255 0.0.0.0 any log-input
+deny ip any 255.255.255.255 0.0.0.0 log-input
+deny ip 192.0.2.0 0.0.0.255 any log-input
+deny ip any 192.0.2.0 0.0.0.255 any log-input
+deny ip host 0.0.0.0 any log-input
+deny ip any host 0.0.0.0 log-input
+deny ip host 255.255.255.255 any log-input
+deny ip any host 255.255.255.255 log-input
+deny ip 127.0.0.0 0.255.255.255 any log-input
+deny ip any 127.0.0.0 0.255.255.255 log-input
+deny ip 224.0.0.0 15.255.255.255 any log-input
+deny ip any 224.0.0.0 15.255.255.255 log-input
+deny ip 240.0.0.0 7.255.255.255 any log-input
+deny ip any 240.0.0.0 7.255.255.255 log-input
+deny ip 0.0.0.0 0.255.255.255 any log-input
+deny ip any 0.0.0.0 0.255.255.255 log-input
+deny ip 169.254.0.0 0.0.255.255 any log-input
+deny ip any 169.254.0.0 0.0.255.255 log-input
+!
+!
+remark -- Allow returning server traffic --
+!
+evaluate SERVER_REFLECTIVE
+!
+!
+remark -- Allow only necessary services from the hosts --
+!
+permit tcp SERVER_IP_RANGE SERVER_MASK any eq NEEDED_PORT reflect SERVERS_GENERAL_REFLECTIVE
+...
+!
+!
+remark -- Allow certain ICMP --
+!
+permit icmp SERVER_IP_RANGE SERVER_MASK any 0
+permit icmp SERVER_IP_RANGE SERVER_MASK any 3 4
+permit icmp SERVER_IP_RANGE SERVER_MASK any 8
+permit icmp SERVER_IP_RANGE SERVER_MASK any 11
+permit icmp SERVER_IP_RANGE SERVER_MASK any 12
+!
+!
+remark -- Deny all other ICMP --
+!
+deny icmp any any log-input
+!
+!
+remark -- Block everything else -- 
+!
+deny ip any any log-input
+!

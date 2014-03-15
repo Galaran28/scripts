@@ -1,0 +1,50 @@
+! VARIABLES:
+! NETWORKING_DEVICE: A networking device
+! SYSLOG_SERVER: IP of a SYSLOG server
+! NETWORKING_IP_RANGE: A networking device
+! NETWORKING_MASK: The LAN interface's IP range
+! 
+
+
+ip access extend NETWORKING_INBOUND
+!
+!
+remark -- Deny Fragments --
+!
+deny tcp any any fragments log-input
+deny udp any any fragments log-input
+deny icmp any any fragments log-input
+deny ip any any fragments log-input
+!
+!
+remark -- Deny Packets with IP Options --
+!
+deny ip any any option any-options log-input
+!
+!
+evaluate NETWORKING_REFLECTIVE
+!
+!
+remark -- Allow SYSLOG from boxes --
+!
+permit udp host NETWORKING_DEVICE host SYSLOG_SERVER eq 514  
+!
+!
+remark -- Allow certain ICMP --
+!
+permit icmp any NETWORKING_IP_RANGE NETWORKING_MASK 0
+permit icmp any NETWORKING_IP_RANGE NETWORKING_MASK 3 4
+permit icmp any NETWORKING_IP_RANGE NETWORKING_MASK 8
+permit icmp any NETWORKING_IP_RANGE NETWORKING_MASK 11
+permit icmp any NETWORKING_IP_RANGE NETWORKING_MASK 12
+!
+!
+remark -- Deny all other ICMP --
+!
+deny icmp any any log-input
+!
+!
+remark -- Block everything else -- 
+!
+deny ip any any log-input
+!

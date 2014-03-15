@@ -1,0 +1,35 @@
+! VARIABLES:
+! NETWORKING_DEVICE: A networking device
+! SUMMARY_IP_RANGE: Our total IP range
+! SUMMARY_MASK: Our total IP mask
+! NETWORKING_IP_RANGE: A networking device
+! NETWORKING_MASK: The LAN interface's IP range
+! 
+
+
+ip access extend NETWORKING_OUTBOUND
+!
+!
+remark -- Allow SSH to boxes --
+!
+permit tcp SUMMARY_IP_RANGE SUMMARY_MASK host NETWORKING_DEVICE eq 22 reflect NETWORKING_REFLECTIVE
+!
+!
+remark -- Allow certain ICMP --
+!
+permit icmp any NETWORKING_IP_RANGE NETWORKING_MASK 0
+permit icmp any NETWORKING_IP_RANGE NETWORKING_MASK 3 4
+permit icmp any NETWORKING_IP_RANGE NETWORKING_MASK 8
+permit icmp any NETWORKING_IP_RANGE NETWORKING_MASK 11
+permit icmp any NETWORKING_IP_RANGE NETWORKING_MASK 12
+!
+!
+remark -- Deny all other ICMP --
+!
+deny icmp any any log-input
+!
+!
+remark -- Block everything else -- 
+!
+deny ip any any log-input
+!

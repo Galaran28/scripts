@@ -1,0 +1,178 @@
+!
+! Immediate Stuff
+no cdp run
+no snmp-server
+no ip http server
+no service tcp-small-servers
+no service udp-small-servers
+no ip bootp server
+no ip dhcp bootp ignore
+no service finger
+no ip source-route
+no ip identd
+no ip name-server
+no ip classless
+no ip http secure-server
+no service config
+no boot network
+no ntp server
+no ftp-server write-enable
+no ip finger
+ip options drop
+no service pad
+no lldp run global
+!
+! - Set the DNS Server
+ip name-server DNS_SERVER_IP
+!
+!
+! - Secure the boot image
+secure boot-image
+! Use after we have our config
+! secure boot-config
+!
+! - Limit from which interfaces ssh and other management stuff can be accessed from (added 12.4(6)T)
+!
+!control-plane host
+!management-interface INSIDE_INTERFACE allow ssh
+!exit
+!
+service timestamps log datetime msec localtime show-timezone
+service sequence-numbers 
+! logging rate-limit all 10 except error
+!
+! - Enable keepalives
+service tcp-keepalives-out
+service tcp-keepalives-in
+!
+! Set our username and password
+!
+username USERNAME secret PASSWORD 
+!
+no username Cisco
+no username cisco
+no username user
+!
+service pass
+!
+! - Configure SSH
+!
+ip domain-name DOMAIN
+crypto key gen rsa
+2048
+ip ssh ver 2 
+ip ssh auth 2
+ip ssh time 30
+!
+! - Lines
+!
+line con 0
+!
+logging syn
+login local
+exit
+!
+ip access stand DENY_ALL
+! 
+deny any
+!
+ip access ext REMOTE
+!
+permit tcp OUR_IP_RANGE OUR_MASK host ROUTER_IP eq 22
+deny ip any any log-input
+exit
+!
+line vty 0 1
+!
+transport input ssh
+transport output ssh
+transport pref ssh
+login local
+access REMOTE in
+exec-timeout 2
+exit
+!
+no line vty 5 1000000000000000000000
+!
+line vty 2 4
+!
+transport input none
+transport output none
+transport preferred none
+access DENY_ALL in
+exit
+!
+privilege exec level 15 access-enable
+privilege exec level 15 connect
+privilege exec level 15 telnet
+privilege exec level 15 ssh
+privilege exec level 15 rlogin
+privilege exec level 15 show ip access-lists
+privilege exec level 15 show access-lists
+privilege exec level 15 show logging
+privilege exec level 15 show ip
+!
+!
+! Filters out certain websites
+class-map match-any URL-FILTER-CLASS
+!
+match protocol http host "*domain.com"
+exit
+!
+!
+policy-map URL_FILTER_MAP
+!
+class URL-FILTER-CLASS
+!
+drop
+!
+exit
+!
+exit
+!
+!
+! - INTERFACES
+!
+int INTERFACE_NAME_OUTSIDE
+!
+! For URL filtering
+!
+service-policy output URL_FILTER_MAP
+!
+no ip redirects
+no ip directed-broadcast
+no ip mask-reply
+no ip unreachables
+no ip proxy-arp
+ip verify unicast reverse-path
+! - deny IPv6
+ipv6 access-list DENY-IPV6
+!
+!
+int INTERFACE_NAME_INSIDE
+!
+no ip redirects
+no ip directed-broadcast
+no ip mask-reply
+no ip unreachables
+no ip proxy-arp
+! - deny IPv6
+ipv6 access-list DENY-IPV6
+! On interfaces that need DHCP server on separate network
+!
+ip helper-address DHCP_SERVER_ADDRESS
+!
+!
+
+
+
+
+
+
+Other Configs
+
+Logging:
+logging trap 6
+logging SYSLOG_SERVER_IP
+
+Will need to modify access lists for syslog port
